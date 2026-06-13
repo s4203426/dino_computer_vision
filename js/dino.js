@@ -65,55 +65,80 @@ export class Dino {
   }
 
   render(ctx) {
-    ctx.fillStyle = '#535353';
     const x = this.x;
     const y = this.y;
 
-    // Body
-    ctx.fillRect(x + 8, y + 4, 28, 20);
-    // Head
-    ctx.fillRect(x + 20, y, 20, 16);
-    // Eye
-    ctx.fillStyle = '#f7f7f7';
-    ctx.fillRect(x + 34, y + 4, 4, 4);
     ctx.fillStyle = '#535353';
-    // Mouth bump
-    ctx.fillRect(x + 36, y + 12, 6, 4);
-    // Tail
-    ctx.fillRect(x, y + 8, 12, 8);
 
+    // Tail (tapers left)
+    ctx.fillRect(x,      y + 22, 12, 7);
+    ctx.fillRect(x + 2,  y + 27, 8,  5);
+    ctx.fillRect(x + 4,  y + 30, 4,  3);
+
+    // Body
+    ctx.fillRect(x + 10, y + 18, 24, 20);
+
+    // Neck
+    ctx.fillRect(x + 22, y + 10, 12, 12);
+
+    // Head (extends right)
+    ctx.fillRect(x + 16, y,      28, 14);
+
+    // Upper jaw cap
+    ctx.fillRect(x + 36, y + 12, 8,  4);
+
+    // Lower jaw
+    ctx.fillRect(x + 28, y + 12, 16, 6);
+
+    // Eye (white)
+    ctx.fillStyle = '#f7f7f7';
+    ctx.fillRect(x + 33, y + 2,  7, 7);
+
+    ctx.fillStyle = '#535353';
     if (this.dead) {
-      // X eyes
-      ctx.fillStyle = '#f7f7f7';
-      ctx.fillRect(x + 30, y + 2, 8, 8);
-      ctx.fillStyle = '#535353';
-      ctx.fillRect(x + 31, y + 3, 2, 2);
-      ctx.fillRect(x + 35, y + 3, 2, 2);
-      ctx.fillRect(x + 31, y + 7, 2, 2);
-      ctx.fillRect(x + 35, y + 7, 2, 2);
+      // X eye when dead
+      ctx.fillRect(x + 34, y + 3,  2, 2);
+      ctx.fillRect(x + 37, y + 3,  2, 2);
+      ctx.fillRect(x + 35, y + 5,  2, 2);
+      ctx.fillRect(x + 34, y + 7,  2, 2);
+      ctx.fillRect(x + 37, y + 7,  2, 2);
+    } else {
+      // Normal pupil
+      ctx.fillRect(x + 35, y + 4,  3, 3);
     }
 
-    // Legs
-    if (!this.dead) {
-      this._renderLegs(ctx, x, y);
-    }
+    // Tiny T-Rex arm
+    ctx.fillRect(x + 24, y + 26, 10, 4);
+    ctx.fillRect(x + 30, y + 28, 6,  5);
+
+    this._renderLegs(ctx, x, y);
   }
 
   _renderLegs(ctx, x, y) {
     ctx.fillStyle = '#535353';
-    const legY = y + DINO_H - 16;
-    if (this.onGround) {
-      if (this._legFrame === 0) {
-        ctx.fillRect(x + 12, legY, 8, 16);
-        ctx.fillRect(x + 24, legY + 8, 8, 8);
-      } else {
-        ctx.fillRect(x + 12, legY + 8, 8, 8);
-        ctx.fillRect(x + 24, legY, 8, 16);
-      }
+    const legY = y + 36;
+
+    if (!this.onGround) {
+      // Jump: legs tucked up
+      ctx.fillRect(x + 10, legY,     8, 8);
+      ctx.fillRect(x + 6,  legY + 6, 10, 4);
+      ctx.fillRect(x + 22, legY + 2, 8, 8);
+      ctx.fillRect(x + 22, legY + 8, 6, 4);
+      return;
+    }
+
+    if (this._legFrame === 0) {
+      // Left leg forward, right leg back
+      ctx.fillRect(x + 10, legY,      8,  10);
+      ctx.fillRect(x + 6,  legY + 8,  12, 4);
+      ctx.fillRect(x + 22, legY + 4,  8,  8);
+      ctx.fillRect(x + 22, legY + 10, 4,  2);
     } else {
-      // Jump pose: both legs back
-      ctx.fillRect(x + 10, legY + 4, 8, 12);
-      ctx.fillRect(x + 22, legY + 4, 8, 12);
+      // Right leg forward, left leg back
+      ctx.fillRect(x + 10, legY + 4,  8,  8);
+      ctx.fillRect(x + 10, legY + 10, 4,  2);
+      ctx.fillRect(x + 22, legY,      8,  10);
+      ctx.fillRect(x + 18, legY + 8,  12, 4);
     }
   }
 }
