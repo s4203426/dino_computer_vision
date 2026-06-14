@@ -47,7 +47,7 @@ export class Game {
     if (this.state === GameState.WAITING) {
       this.start();
     } else if (this.state === GameState.PLAYING) {
-      this.dino.jump();
+      this.dino.jump(this.speed);
     } else if (this.state === GameState.GAMEOVER) {
       this.restart();
     }
@@ -57,7 +57,7 @@ export class Game {
     if (this.state === GameState.WAITING) {
       this.start();
     } else if (this.state === GameState.PLAYING) {
-      this.dino.jump();
+      this.dino.jump(this.speed);
     } else if (this.state === GameState.GAMEOVER) {
       this.restart();
     }

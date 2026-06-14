@@ -1,7 +1,6 @@
 import { GROUND_TOP } from './ground.js';
 
 const GRAVITY = 1800;
-const JUMP_VELOCITY = -600;
 const START_X = 80;
 const DINO_W = 44;
 const DINO_H = 48;
@@ -27,9 +26,9 @@ export class Dino {
     this._legTimer = 0;
   }
 
-  jump() {
+  jump(speed = 6) {
     if (!this.onGround || this.dead) return;
-    this.vy = JUMP_VELOCITY;
+    this.vy = -(600 + (speed - 6) * 20);
     this.onGround = false;
   }
 

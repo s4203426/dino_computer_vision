@@ -22,17 +22,17 @@ export class ObstacleManager {
   constructor() {
     this.obstacles = [];
     this._timer = 0;
-    this._nextSpawn = 3;
+    this._nextSpawn = 2.3;
   }
 
   reset() {
     this.obstacles = [];
     this._timer = 0;
-    this._nextSpawn = 3;
+    this._nextSpawn = 2.3;
   }
 
   _baseInterval(score) {
-    if (score < 200) return 3.0;
+    if (score < 200) return 2.3;
     const steps = Math.min(5, Math.floor((score - 200) / 100) + 1);
     return 3.0 - steps * 0.3;
   }
