@@ -102,7 +102,7 @@ export class Game {
     this.groundRenderer.update(this.speed);
     this.cloudManager.update(this.speed * 0.3);
     this.dino.update(delta);
-    this.obstacleManager.update(this.speed);
+    this.obstacleManager.update(this.speed, this.scoreManager.score);
 
     const milestone = this.scoreManager.update(delta);
     if (milestone) this.flashTimer = 0.4;

@@ -22,23 +22,29 @@ export class ObstacleManager {
   constructor() {
     this.obstacles = [];
     this._timer = 0;
-    this._nextSpawn = 2;
+    this._nextSpawn = 3;
   }
 
   reset() {
     this.obstacles = [];
     this._timer = 0;
-    this._nextSpawn = 2;
+    this._nextSpawn = 3;
   }
 
-  update(speed) {
+  _baseInterval(score) {
+    if (score < 200) return 3.0;
+    const steps = Math.min(5, Math.floor((score - 200) / 100) + 1);
+    return 3.0 - steps * 0.3;
+  }
+
+  update(speed, score) {
     for (const o of this.obstacles) o.x -= speed;
     this.obstacles = this.obstacles.filter((o) => o.x + o.w + 60 > 0);
 
     this._timer += 1 / 60;
     if (this._timer >= this._nextSpawn) {
       this._timer = 0;
-      this._nextSpawn = 1.2 + Math.random() * 2;
+      this._nextSpawn = this._baseInterval(score) + Math.random() * 1.2;
       const type = CACTUS_TYPES[Math.floor(Math.random() * CACTUS_TYPES.length)];
       this.obstacles.push(makeCactus(type));
     }
