@@ -66,49 +66,42 @@ export class Dino {
   render(ctx) {
     const x = this.x;
     const y = this.y;
+    const c = '#535353';
 
-    ctx.fillStyle = '#535353';
+    // ── TAIL ──
+    ctx.fillStyle = c;
+    ctx.fillRect(x,      y + 20, 8,  10);
+    ctx.fillRect(x + 4,  y + 28, 6,  6);
 
-    // Tail (tapers left)
-    ctx.fillRect(x,      y + 22, 12, 7);
-    ctx.fillRect(x + 2,  y + 27, 8,  5);
-    ctx.fillRect(x + 4,  y + 30, 4,  3);
+    // ── BODY (large upright mass) ──
+    ctx.fillRect(x + 6,  y + 14, 26, 24);
 
-    // Body
-    ctx.fillRect(x + 10, y + 18, 24, 20);
+    // ── NECK ──
+    ctx.fillRect(x + 18, y + 8,  14, 10);
 
-    // Neck
-    ctx.fillRect(x + 22, y + 10, 12, 12);
+    // ── BROW (bump trên đầu) ──
+    ctx.fillRect(x + 16, y,      12, 6);
 
-    // Head (extends right)
-    ctx.fillRect(x + 16, y,      28, 14);
+    // ── HEAD ──
+    ctx.fillRect(x + 12, y + 4,  30, 18);
 
-    // Upper jaw cap
-    ctx.fillRect(x + 36, y + 12, 8,  4);
-
-    // Lower jaw
-    ctx.fillRect(x + 28, y + 12, 16, 6);
-
-    // Eye (white)
+    // ── EYE ──
     ctx.fillStyle = '#f7f7f7';
-    ctx.fillRect(x + 33, y + 2,  7, 7);
-
-    ctx.fillStyle = '#535353';
+    ctx.fillRect(x + 30, y + 6,  8,  8);
+    ctx.fillStyle = c;
     if (this.dead) {
-      // X eye when dead
-      ctx.fillRect(x + 34, y + 3,  2, 2);
-      ctx.fillRect(x + 37, y + 3,  2, 2);
-      ctx.fillRect(x + 35, y + 5,  2, 2);
-      ctx.fillRect(x + 34, y + 7,  2, 2);
-      ctx.fillRect(x + 37, y + 7,  2, 2);
+      ctx.fillRect(x + 31, y + 7,  2, 2);
+      ctx.fillRect(x + 35, y + 7,  2, 2);
+      ctx.fillRect(x + 32, y + 9,  2, 2);
+      ctx.fillRect(x + 31, y + 11, 2, 2);
+      ctx.fillRect(x + 35, y + 11, 2, 2);
     } else {
-      // Normal pupil
-      ctx.fillRect(x + 35, y + 4,  3, 3);
+      ctx.fillRect(x + 32, y + 8,  4, 4);
     }
 
-    // Tiny T-Rex arm
-    ctx.fillRect(x + 24, y + 26, 10, 4);
-    ctx.fillRect(x + 30, y + 28, 6,  5);
+    // ── ARM ──
+    ctx.fillRect(x + 18, y + 22, 12, 4);
+    ctx.fillRect(x + 24, y + 24, 8,  6);
 
     this._renderLegs(ctx, x, y);
   }
@@ -118,26 +111,21 @@ export class Dino {
     const legY = y + 36;
 
     if (!this.onGround) {
-      // Jump: legs tucked up
-      ctx.fillRect(x + 10, legY,     8, 8);
-      ctx.fillRect(x + 6,  legY + 6, 10, 4);
-      ctx.fillRect(x + 22, legY + 2, 8, 8);
-      ctx.fillRect(x + 22, legY + 8, 6, 4);
+      ctx.fillRect(x + 8,  legY,     10, 6);
+      ctx.fillRect(x + 4,  legY + 4, 8,  4);
+      ctx.fillRect(x + 20, legY + 2, 10, 8);
+      ctx.fillRect(x + 20, legY + 8, 6,  4);
       return;
     }
 
     if (this._legFrame === 0) {
-      // Left leg forward, right leg back
-      ctx.fillRect(x + 10, legY,      8,  10);
-      ctx.fillRect(x + 6,  legY + 8,  12, 4);
-      ctx.fillRect(x + 22, legY + 4,  8,  8);
-      ctx.fillRect(x + 22, legY + 10, 4,  2);
+      ctx.fillRect(x + 18, legY,     10, 12);
+      ctx.fillRect(x + 14, legY + 8, 12, 4);
+      ctx.fillRect(x + 8,  legY + 6, 10, 6);
     } else {
-      // Right leg forward, left leg back
-      ctx.fillRect(x + 10, legY + 4,  8,  8);
-      ctx.fillRect(x + 10, legY + 10, 4,  2);
-      ctx.fillRect(x + 22, legY,      8,  10);
-      ctx.fillRect(x + 18, legY + 8,  12, 4);
+      ctx.fillRect(x + 18, legY + 6, 10, 6);
+      ctx.fillRect(x + 8,  legY,     10, 12);
+      ctx.fillRect(x + 4,  legY + 8, 12, 4);
     }
   }
 }
